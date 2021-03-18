@@ -1,0 +1,698 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "loopback-api",
+    "version": "0.0.1",
+    "description": "loopback api udemy",
+    "contact": {
+      "name": "amachiavello",
+      "email": "agmachiavello@gmail.com"
+    }
+  },
+  "paths": {
+    "/hello-world": {
+      "get": {
+        "x-controller-name": "HelloWorldController",
+        "x-operation-name": "sayHello",
+        "tags": [
+          "HelloWorldController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Hello world description",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "HelloWorldController.sayHello"
+      }
+    },
+    "/ping": {
+      "get": {
+        "x-controller-name": "PingController",
+        "x-operation-name": "ping",
+        "tags": [
+          "PingController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Ping Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponse"
+                }
+              }
+            }
+          }
+        },
+        "operationId": "PingController.ping"
+      }
+    },
+    "/profiles/count": {
+      "get": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "count",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile model count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Profile.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Profile>"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProfileController.count"
+      }
+    },
+    "/profiles/{id}": {
+      "put": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "replaceById",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Profile PUT success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Profile"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProfileController.replaceById"
+      },
+      "patch": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "updateById",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Profile PATCH success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePartial"
+              }
+            }
+          },
+          "x-parameter-index": 1
+        },
+        "operationId": "ProfileController.updateById"
+      },
+      "get": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "findById",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfileWithRelations"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile.Filter"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProfileController.findById"
+      },
+      "delete": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "deleteById",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "description": "Profile DELETE success"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "number"
+            },
+            "required": true
+          }
+        ],
+        "operationId": "ProfileController.deleteById"
+      }
+    },
+    "/profiles": {
+      "post": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "create",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile model instance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewProfile"
+              }
+            }
+          }
+        },
+        "operationId": "ProfileController.create"
+      },
+      "patch": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "updateAll",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Profile PATCH success count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loopback.Count"
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "where",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "title": "Profile.WhereFilter",
+                  "additionalProperties": true,
+                  "x-typescript-type": "@loopback/repository#Where<Profile>"
+                }
+              }
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfilePartial"
+              }
+            }
+          }
+        },
+        "operationId": "ProfileController.updateAll"
+      },
+      "get": {
+        "x-controller-name": "ProfileController",
+        "x-operation-name": "find",
+        "tags": [
+          "ProfileController"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of Profile model instances",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProfileWithRelations"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile.Filter1"
+                }
+              }
+            }
+          }
+        ],
+        "operationId": "ProfileController.find"
+      }
+    }
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Profile": {
+        "title": "Profile",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "age": {
+            "type": "number"
+          },
+          "history": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewProfile": {
+        "title": "NewProfile",
+        "type": "object",
+        "description": "(tsType: Omit<Profile, 'id'>, schemaOptions: { title: 'NewProfile', exclude: [ 'id' ] })",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "age": {
+            "type": "number"
+          },
+          "history": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Omit<Profile, 'id'>"
+      },
+      "ProfileWithRelations": {
+        "title": "ProfileWithRelations",
+        "type": "object",
+        "description": "(tsType: ProfileWithRelations, schemaOptions: { includeRelations: true })",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "age": {
+            "type": "number"
+          },
+          "history": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "ProfileWithRelations"
+      },
+      "ProfilePartial": {
+        "title": "ProfilePartial",
+        "type": "object",
+        "description": "(tsType: Partial<Profile>, schemaOptions: { partial: true })",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "birthDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "age": {
+            "type": "number"
+          },
+          "history": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "Partial<Profile>"
+      },
+      "PingResponse": {
+        "type": "object",
+        "title": "PingResponse",
+        "properties": {
+          "greeting": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "headers": {
+            "type": "object",
+            "properties": {
+              "Content-Type": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": true
+          }
+        }
+      },
+      "loopback.Count": {
+        "type": "object",
+        "title": "loopback.Count",
+        "x-typescript-type": "@loopback/repository#Count",
+        "properties": {
+          "count": {
+            "type": "number"
+          }
+        }
+      },
+      "Profile.Filter": {
+        "type": "object",
+        "title": "Profile.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "firstName": {
+                    "type": "boolean"
+                  },
+                  "lastName": {
+                    "type": "boolean"
+                  },
+                  "createdAt": {
+                    "type": "boolean"
+                  },
+                  "birthDate": {
+                    "type": "boolean"
+                  },
+                  "age": {
+                    "type": "boolean"
+                  },
+                  "history": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "createdAt",
+                    "birthDate",
+                    "age",
+                    "history"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Profile.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Profile>"
+      },
+      "Profile.Filter1": {
+        "type": "object",
+        "title": "Profile.Filter",
+        "properties": {
+          "offset": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "example": 100
+          },
+          "skip": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "order": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ]
+          },
+          "where": {
+            "title": "Profile.WhereFilter",
+            "type": "object",
+            "additionalProperties": true
+          },
+          "fields": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "boolean"
+                  },
+                  "firstName": {
+                    "type": "boolean"
+                  },
+                  "lastName": {
+                    "type": "boolean"
+                  },
+                  "createdAt": {
+                    "type": "boolean"
+                  },
+                  "birthDate": {
+                    "type": "boolean"
+                  },
+                  "age": {
+                    "type": "boolean"
+                  },
+                  "history": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "id",
+                    "firstName",
+                    "lastName",
+                    "createdAt",
+                    "birthDate",
+                    "age",
+                    "history"
+                  ],
+                  "example": "id"
+                },
+                "uniqueItems": true
+              }
+            ],
+            "title": "Profile.Fields"
+          }
+        },
+        "additionalProperties": false,
+        "x-typescript-type": "@loopback/repository#Filter<Profile>"
+      }
+    }
+  }
+}
